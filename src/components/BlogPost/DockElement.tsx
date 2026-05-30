@@ -1,4 +1,4 @@
-import React, { useState, type JSX } from "react";
+import { useState, type JSX } from "react";
 import { HomeIcon } from "lucide-react";
 
 import { buttonVariants } from "./ui/button";
@@ -23,15 +23,22 @@ import { IoShareSocialOutline } from "react-icons/io5";
 export default function DockElement(): JSX.Element {
   // const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   const goHome = () => {
     // navigate('/');
    }
   const sendLike = () => {
+    console.log("Liked!");
     setLiked((prev) => !prev);
   }
   const openComment = () => { }
-  const toogleBookmark = () => { }
+  const toogleBookmark = () => { 
+    setBookmarked((prev) => !prev);
+  }
   const createShare = () => { }
+
+  console.log("Liked:", liked);
+  console.log("Bookmarked:", bookmarked);
 
   const DATA = {
     navStart: [
@@ -49,7 +56,7 @@ export default function DockElement(): JSX.Element {
         action: sendLike,
         icon: BiLike,
         icon_done: BiSolidLike,
-        done: true,
+        done: liked,
       },
       "comment": {
         name: "Comment",
@@ -63,7 +70,7 @@ export default function DockElement(): JSX.Element {
         action: toogleBookmark,
         icon: FaRegBookmark,
         icon_done: FaBookmark,
-        done: true,
+        done: bookmarked,
       },
       "share": {
         name: "Share",
@@ -90,6 +97,7 @@ export default function DockElement(): JSX.Element {
 
                   <div
                     aria-label={item.name}
+                    onClick={item.action}
                     className={cn(
                       buttonVariants({ variant: "ghost", size: "icon" }),
                       "size-12 rounded-full hover:bg-[#0f0f0fc4] hover:text-current",
@@ -118,12 +126,15 @@ export default function DockElement(): JSX.Element {
               <TooltipTrigger asChild>
                 <div
                   aria-label={social.name}
+                  onClick={social.action}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "size-12 rounded-full hover:bg-[#0f0f0fc4] hover:text-current",
                   )}
                 >
-                  <social.icon className="size-4" />
+                  {
+                      social.done ? <social.icon_done className="size-4" /> : <social.icon className="size-4" />
+                  }
                 </div>
               </TooltipTrigger>
               <TooltipContent>

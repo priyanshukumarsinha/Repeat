@@ -1,6 +1,11 @@
 
+interface BlogCommentProps {
+    index: number;
+    comment: any;
+    level?: number;
+}
 
-export function BlogComment({ index, comment, level = 0 }) {
+export function BlogComment({ index, comment, level = 0 }: BlogCommentProps) {
     console.log(comment);
     const indentClass = level > 0 ? "ml-8 pb-1" : "";
     return (

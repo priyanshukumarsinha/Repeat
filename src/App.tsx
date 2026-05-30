@@ -6,11 +6,11 @@ import DockElement from './components/BlogPost/DockElement'
 
 
 function App() {
-  const [content, setContent] = useState()
-  const [title, setTitle] = useState()
-  const [comments, setComments] = useState()
+  const [content, setContent] = useState("Loading...");
+  const [title, setTitle] = useState("Loading...");
+  const [comments, setComments] = useState([]);
   useEffect(() => {
-    const getArticleById = async (articleId) => {
+    const getArticleById = async (articleId:string) => {
       const response = await axios.get(`https://dev.to/api/articles/${articleId}`);
       console.log(response);
       setContent(response.data.body_markdown);
