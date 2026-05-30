@@ -1,4 +1,4 @@
-import React, { type JSX } from "react";
+import React, { useState, type JSX } from "react";
 import { HomeIcon } from "lucide-react";
 
 import { buttonVariants } from "./ui/button";
@@ -16,43 +16,65 @@ import { Dock, DockIcon } from "./ui/dock";
 import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
+import { BiSolidLike } from "react-icons/bi";
 import { IoShareSocialOutline } from "react-icons/io5";
 
-
-const DATA = {
-  navStart: [
-    {
-      name: "Home",
-      url: "/",
-      icon: HomeIcon,
-    }
-  ],
-  actions: {
-    "like": {
-      name: "Like",
-      url: "#",
-      icon: BiLike,
-    },
-    "comment": {
-      name: "Comment",
-      url: "#",
-      icon: FaRegComment,
-    },
-    "bookmark": {
-      name: "Bookmark",
-      url: "#",
-      icon: FaRegBookmark,
-    },
-    "share": {
-      name: "Share",
-      url: "#",
-      icon: IoShareSocialOutline,
-    },
-  },
-
-}
-
 export default function DockElement(): JSX.Element {
+  // const navigate = useNavigate();
+  const [liked, setLiked] = useState(false);
+  const goHome = () => {
+    // navigate('/');
+   }
+  const sendLike = () => {
+    setLiked((prev) => !prev);
+  }
+  const openComment = () => { }
+  const toogleBookmark = () => { }
+  const createShare = () => { }
+
+  const DATA = {
+    navStart: [
+      {
+        name: "Home",
+        action: goHome,
+        icon: HomeIcon,
+        icon_done: HomeIcon,
+        done: false,
+      }
+    ],
+    actions: {
+      "like": {
+        name: "Like",
+        action: sendLike,
+        icon: BiLike,
+        icon_done: BiSolidLike,
+        done: true,
+      },
+      "comment": {
+        name: "Comment",
+        action: openComment,
+        icon: FaRegComment,
+        icon_done: FaRegComment,
+        done: false,
+      },
+      "bookmark": {
+        name: "Bookmark",
+        action: toogleBookmark,
+        icon: FaRegBookmark,
+        icon_done: FaBookmark,
+        done: true,
+      },
+      "share": {
+        name: "Share",
+        action: createShare,
+        icon: IoShareSocialOutline,
+        icon_done: IoShareSocialOutline,
+        done: false,
+      },
+    },
+
+  }
   return (
     <TooltipProvider>
       <Dock
@@ -65,19 +87,18 @@ export default function DockElement(): JSX.Element {
               key={item.name}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <a
-                    href={item.url}
+
+                  <div
                     aria-label={item.name}
-                    // open external links safely
-                    target={item.url.startsWith("http") ? "_blank" : undefined}
-                    rel={item.url.startsWith("http") ? "noopener noreferrer" : undefined}
                     className={cn(
                       buttonVariants({ variant: "ghost", size: "icon" }),
                       "size-12 rounded-full hover:bg-[#0f0f0fc4] hover:text-current",
                     )}
                   >
-                    <item.icon className="size-4" />
-                  </a>
+                    {
+                      item.done ? <item.icon_done className="size-4" /> : <item.icon className="size-4" />
+                    }
+                  </div>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{item.name}</p>
@@ -95,19 +116,15 @@ export default function DockElement(): JSX.Element {
             key={name}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <a
-                  href={social.url}
+                <div
                   aria-label={social.name}
-                  // open external links safely
-                  target={social.url.startsWith("http") ? "_blank" : undefined}
-                  rel={social.url.startsWith("http") ? "noopener noreferrer" : undefined}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "size-12 rounded-full hover:bg-[#0f0f0fc4] hover:text-current",
                   )}
                 >
                   <social.icon className="size-4" />
-                </a>
+                </div>
               </TooltipTrigger>
               <TooltipContent>
                 <p>{name}</p>
