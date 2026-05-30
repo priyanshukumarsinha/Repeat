@@ -13,7 +13,7 @@ export function BlogComment({
 }: BlogCommentProps) {
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [replyText, setReplyText] = useState("");
-
+  console.log(index);
   const handleReply = () => {
     if (!replyText.trim()) return;
 
