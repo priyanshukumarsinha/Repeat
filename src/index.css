@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+
+/* css for changing background when in dark mode */
+/* and white in light mode which is default */
+/* modes are known by applying classname in root */
+
+:root{
+    --background-color: white;
+    --text-color: black;
+}
+
+/* how to use this in to change backround */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+        --background-color: #121212;
+        --text-color: white;
+    }
+}
