@@ -17,14 +17,9 @@ function App() {
       element: <BlogPage />,
       errorElement: <BlogNotFoundErrorPage />,
     },
-    // {
-    //   path: "/u/:userId",
-    //   element: <UserProfile />, // Placeholder for UserProfile component
-    //   errorElement: <UserNotFoundErrorPage />,
-    // },
     {
       path: "/u/:username",
-      element: <UserProfile />, // Placeholder for UserProfile component
+      element: <UserProfile />, 
       errorElement: <UserNotFoundErrorPage />,
     }
   ]);

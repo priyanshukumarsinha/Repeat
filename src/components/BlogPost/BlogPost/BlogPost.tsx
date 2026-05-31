@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BlogAuthor } from "./BlogAuthor";
-import { BlogContent } from "./BlogContent";
+import { BlogContent } from "./BlogContent/BlogContent";
 import { BlogTitle } from "./BlogTitle";
 import { Comments } from "./Comments";
 import axios from "axios";

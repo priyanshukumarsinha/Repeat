@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface BlogCommentProps {
   index: number;
@@ -26,6 +27,12 @@ export function BlogComment({
     setShowReplyBox(false);
   };
 
+  const navigate = useNavigate();
+
+  const handleUserNameClick = () => {
+    navigate(`/u/${comment.user?.username}`);
+  }
+
   return (
     <div
       className={
@@ -47,7 +54,10 @@ export function BlogComment({
           "
         >
           <div className="mb-2">
-            <p className="font-semibold text-sm text-zinc-900 dark:text-white">
+            <p 
+              className="font-semibold text-sm text-zinc-900 dark:text-white cursor-pointer hover:text-blue-500" 
+              onClick={handleUserNameClick}
+            >
               {comment.user?.name}
             </p>
 
@@ -78,6 +88,7 @@ export function BlogComment({
                 font-medium
                 text-blue-500
                 hover:text-blue-600
+                cursor-pointer
               "
             >
               {showReplyBox ? "Cancel" : "Reply"}
@@ -104,7 +115,7 @@ export function BlogComment({
                 className="
                   w-full
                   resize-none
-                  rounded-lg
+                  rounded-sm
                   border
                   border-zinc-200
                   dark:border-zinc-700
@@ -128,6 +139,7 @@ export function BlogComment({
                     text-sm
                     hover:bg-zinc-100
                     dark:hover:bg-zinc-800
+                    cursor-pointer
                   "
                 >
                   Cancel
@@ -143,6 +155,7 @@ export function BlogComment({
                     text-white
                     hover:bg-white
                     hover:text-black
+                    cursor-pointer
                   "
                 >
                   Reply

@@ -34,7 +34,7 @@ const getBlogs = async (
       .map((blog: any) => ({
         title: blog.title,
         description: blog.description,
-        link: blog.url,
+        link: `https://repeat.0xpks.site/${blog.id}`,
       }));
   } catch (error) {
     console.error(error);
@@ -64,7 +64,7 @@ export const OtherArticles = ({username = "priyanshukumarsinha"}) => {
       <HeadingDiv
         heading="More Articles"
         moreTitle="View all"
-        moreLink={`https://dev.to/${username}`}
+        moreLink={`https://repeat.0xpks.site/${username}`}
       />
       <span 
         className="text-sm text-white/60 mb-4 block -translate-y-6"
