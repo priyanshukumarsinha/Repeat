@@ -1,5 +1,6 @@
 import { BlogComment } from "./BlogComment";
 import { CommentInput } from "./CommentInput";
+import { CommentsSkeleton } from "./Skeleton/CommentsSkeleton";
 
 interface CommentsProps {
   comments: any[];
@@ -7,6 +8,11 @@ interface CommentsProps {
 }
 
 export function Comments({ comments, commentRef }: CommentsProps) {
+  if(comments.length === 1 && comments[0] === "Loading ...") {
+    return (
+      <CommentsSkeleton />
+    );
+  }
   return (
     <div
       id="comments"

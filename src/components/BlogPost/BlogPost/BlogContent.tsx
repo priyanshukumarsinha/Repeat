@@ -1,12 +1,18 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import { BlogContentSkeleton } from "./Skeleton/BlogContentSkeleton";
 
 interface BlogContentProps {
     content: string;
 }
 
 export function BlogContent({ content }: BlogContentProps) {
+  if(content === "Loading ...") {
+    return (
+      <BlogContentSkeleton />
+    )
+  }
   return (
     <article
       className="

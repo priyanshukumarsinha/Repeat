@@ -10,17 +10,34 @@ interface BlogProps {
     link: string;
 }
 
-const getBlogs = async (): Promise<BlogProps[]> => {
+const getBlogs = async (
+  currentArticleId?: string
+): Promise<BlogProps[]> => {
   try {
-    const response = await fetch('https://dev.to/api/articles?username=priyanshukumarsinha');
+    const response = await fetch(
+      "https://dev.to/api/articles?username=priyanshukumarsinha"
+    );
+
     const data = await response.json();
 
-    return data.slice(0, 3).map((blog: any) => ({
-      title: blog.title,
-      description: blog.description || (blog.body_markdown ? blog.body_markdown.slice(0, 80) + '...' : ''),
-      link: blog.url,
-    }));
+    return data
+      .filter(
+        (blog: any) =>
+          !currentArticleId ||
+          blog.id !== Number(currentArticleId)
+      )
+      .sort(
+        (a: any, b: any) =>
+          new Date(b.published_at).getTime() -
+          new Date(a.published_at).getTime()
+      )
+      .map((blog: any) => ({
+        title: blog.title,
+        description: blog.description,
+        link: blog.url,
+      }));
   } catch (error) {
+    console.error(error);
     return [];
   }
 };
@@ -28,10 +45,12 @@ const getBlogs = async (): Promise<BlogProps[]> => {
 export const OtherArticles = ({username = "priyanshukumarsinha"}) => {
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const location = window.location.href;
+  const currentArticleId = location.split('/').pop();
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const blogsData = await getBlogs();
+      const blogsData = await getBlogs(currentArticleId);
       setBlogs(blogsData);
       setLoading(false);
     };

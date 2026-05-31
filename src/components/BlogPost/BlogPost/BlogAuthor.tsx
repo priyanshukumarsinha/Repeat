@@ -1,6 +1,10 @@
+import { BlogAuthorSkeleton } from "./Skeleton/BlogAuthorSkeleton";
 
 
 export function BlogAuthor({ author, publishedDate }: any) {
+  if(author.name === "Loading ..." || publishedDate === "Loading ...") {
+    return <BlogAuthorSkeleton />;
+  }
   return (
     <div className="mb-8 flex items-center gap-3">
       <img

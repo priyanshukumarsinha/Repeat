@@ -6,9 +6,10 @@
 /* and white in light mode which is default */
 /* modes are known by applying classname in root */
 
-:root{
+:root {
     --background-color: white;
     --text-color: black;
+    --skeleton-color: #e0e0e0;
 }
 
 /* how to use this in to change backround */
@@ -19,8 +20,13 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-    :root{
+    :root {
         --background-color: #121212;
         --text-color: white;
+        --skeleton-color: #27272a;
     }
+}
+
+@theme {
+    --color-skeleton: var(--skeleton-color);
 }
